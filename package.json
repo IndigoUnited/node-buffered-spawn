@@ -1,0 +1,45 @@
+{
+  "name": "buffered-spawn",
+  "version": "0.1.0",
+  "description": "Buffered child process#spawn.",
+  "author": "The Bower authors",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "bugs": {
+    "url": "https://github.com/bower/buffered-spawn/issues/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bower/buffered-spawn.git"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "keywords": [
+    "buffered-spawn",
+    "buffer",
+    "spawn",
+    "buffered",
+    "exec",
+    "execute",
+    "path_ext",
+    "bower"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/bower/buffered-spawn/blob/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "err-code": "^0.1.0",
+    "q": "^1.0.1",
+    "which": "^1.0.5"
+  },
+  "devDependencies": {
+    "mocha": "^1.8.1",
+    "expect.js": "^0.3.0"
+  }
+}
