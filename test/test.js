@@ -56,6 +56,23 @@ describe('buffered-spawn', function () {
             })
             .done();
         });
+
+        it('should not swallow callback errors', function (next) {
+            buffspawn('echo', function () {
+                var d = require('domain').create();
+
+                d.on('error', function (err) {
+                    expect(err.message).to.be('foo');
+                    next();
+                });
+
+                d.run(function () {
+                    buffspawn('echo', function () {
+                        throw new Error('foo');
+                    });
+                });
+            });
+        });
     });
 
     it('should buffer stdout & stderr', function (next) {

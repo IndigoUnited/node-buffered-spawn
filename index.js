@@ -30,28 +30,28 @@ function execute(command, args, options) {
         var fullCommand;
         var error;
 
-        if (code) {
-            // Generate the full command to be presented in the error message
-            if (!Array.isArray(args)) {
-                args = [];
-            }
-
-            fullCommand = command;
-            fullCommand += args.length ? ' ' + args.join(' ') : '';
-
-            // Build the error instance
-            error = createError('Failed to execute "' + fullCommand + '", exit code of #' + code, 'ECMDERR', {
-                details: stderr,
-                status: code
-            });
-
-            return deferred.reject(error);
+        if (!code) {
+            return deferred.resolve([
+                stdout.toString(),
+                stderr.toString()
+            ]);
         }
 
-        return deferred.resolve([
-            stdout.toString(),
-            stderr.toString()
-        ]);
+        // Generate the full command to be presented in the error message
+        if (!Array.isArray(args)) {
+            args = [];
+        }
+
+        fullCommand = command;
+        fullCommand += args.length ? ' ' + args.join(' ') : '';
+
+        // Build the error instance
+        error = createError('Failed to execute "' + fullCommand + '", exit code of #' + code, 'ECMDERR', {
+            details: stderr,
+            status: code
+        });
+
+        return deferred.reject(error);
     });
 
     return deferred.promise;
@@ -62,7 +62,6 @@ function buffered(command, args, options, callback) {
         callback = options;
         options = null;
     }
-
     if (typeof args === 'function') {
         callback = args;
         args = options = null;
@@ -70,6 +69,7 @@ function buffered(command, args, options, callback) {
 
     var promise = execute(command, args, options);
 
+    // Manual nodeify because of .spread :(
     if (!callback) {
         return promise;
     }
@@ -79,7 +79,8 @@ function buffered(command, args, options, callback) {
         callback(null, stdout, stderr);
     }, function (err) {
         callback(err);
-    });
+    })
+    .done();
 }
 
 module.exports = buffered;
