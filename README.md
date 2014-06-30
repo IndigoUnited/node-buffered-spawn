@@ -10,9 +10,8 @@ Buffered child_process#spawn.
 
 ## Why
 
-- Simplify executing commands on node
 - Easy to use
-- Fixes Windows [issues](https://github.com/joyent/node/issues/2318) with some commands
+- Uses [cross-spawn](http://github.com/IndigoUnited/node-cross-spawn) that fixes windows [issues](https://github.com/joyent/node/issues/2318)
 - Supports callback & promise style
 
 
