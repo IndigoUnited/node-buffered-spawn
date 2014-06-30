@@ -34,9 +34,9 @@
     }
   ],
   "dependencies": {
+    "cross-spawn": "^0.1.0",
     "err-code": "^0.1.0",
-    "q": "^1.0.1",
-    "which": "^1.0.5"
+    "q": "^1.0.1"
   },
   "devDependencies": {
     "mocha": "^1.8.1",

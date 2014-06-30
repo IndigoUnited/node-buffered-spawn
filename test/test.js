@@ -15,7 +15,10 @@ describe('buffered-spawn', function () {
         });
 
         it('should handle optional options', function (next) {
-            buffspawn('echo', ['foo'], function (err, output) {
+            buffspawn('node', [
+                __dirname + '/fixtures/echo',
+                'foo'
+            ], function (err, output) {
                 expect(err).to.not.be.ok();
                 expect(output.stdout.trim()).to.equal('foo');
 
@@ -23,7 +26,7 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should pass arguments to node\'s spawn', function () {
+        it('should pass arguments to node\'s spawn', function (next) {
             buffspawn('node', ['simple'], { cwd: __dirname + '/fixtures' }, function (err, output) {
                 expect(err).to.not.be.ok();
                 expect(output.stdout).to.equal('i am being printed on stdout');
@@ -36,7 +39,10 @@ describe('buffered-spawn', function () {
         it('should work with promises', function (next) {
             var progressCount = 0;
 
-            buffspawn('echo', ['foo'])
+            buffspawn('node', [
+                __dirname + '/fixtures/echo',
+                'foo'
+            ])
             .progress(function (data) {
                 expect(data).to.be.an(Buffer);
                 expect(data.length).to.be.greaterThan(0);
@@ -66,9 +72,11 @@ describe('buffered-spawn', function () {
             return next();
         }
 
-        buffspawn(__dirname + '/fixtures/echo')  // Should expand to echo.bat
+        buffspawn(__dirname + '/fixtures/foo')  // Should expand to foo.bat
         .done(function (output) {
             expect(output.stdout.trim()).to.equal('foo');
+
+            next();
         });
     });
 

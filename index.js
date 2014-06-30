@@ -1,44 +1,15 @@
-var cp = require('child_process');
-var which = require('which');
+var spawn = require('cross-spawn');
 var createError = require('err-code');
 var Q = require('q');
 
-var isWin = process.platform === 'win32';
-var winWhichCache = isWin ? {} : null;
-
-function expand(command) {
-    var cached;
-
-    // No need to expand if not windows since PATH_EXT
-    if (!isWin) {
-        return Q.resolve(command);
-    }
-
-    // Windows workaround for .bat and .cmd files, see issue #626 of bower
-
-    // Do we got the value converted in the cache?
-    cached = winWhichCache[command];
-    if (cached) {
-        return Q.resolve(cached);
-    }
-
-    // Use which to retrieve the full command, which puts the extension in the end
-    return Q.nfcall(which.bind(which, command))
-    .then(function (fullCommand) {
-        return winWhichCache[command] = fullCommand;
-    }, function () {
-        return command;
-    });
-}
-
-function buffered(command, args, options) {
+function execute(command, args, options) {
     var process;
     var stderr = new Buffer('');
     var stdout = new Buffer('');
     var deferred = Q.defer();
 
     // Buffer output, reporting progress
-    process = cp.spawn(command, args, options);
+    process = spawn(command, args, options);
     process.stdout.on('data', function (data) {
         stdout = Buffer.concat([stdout, data]);
         deferred.notify(data);
@@ -86,7 +57,7 @@ function buffered(command, args, options) {
     return deferred.promise;
 }
 
-function spawn(command, args, options, callback) {
+function buffered(command, args, options, callback) {
     if (typeof options === 'function') {
         callback = options;
         options = null;
@@ -97,11 +68,8 @@ function spawn(command, args, options, callback) {
         args = options = null;
     }
 
-    return expand(command)
-    .then(function (command) {
-        return buffered(command, args, options);
-    })
+    return execute(command, args, options)
     .nodeify(callback);
 }
 
-module.exports = spawn;
+module.exports = buffered;
