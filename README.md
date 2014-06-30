@@ -58,6 +58,19 @@ buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
 });
 ```
 
+The actual child process is available if necessary:
+
+```js
+var buffspawn('buffered-spawn');
+
+// Callback style
+var cp = buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, function () { /* */ }};
+
+// Promise style
+var promise = buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' });
+var cp = promise.cp;
+```
+
 
 ## Tests
 

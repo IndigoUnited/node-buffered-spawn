@@ -54,6 +54,8 @@ function execute(command, args, options) {
         return deferred.reject(error);
     });
 
+    deferred.promise.cp = process;
+
     return deferred.promise;
 }
 
@@ -81,6 +83,8 @@ function buffered(command, args, options, callback) {
         callback(err);
     })
     .done();
+
+    return promise.cp;
 }
 
 module.exports = buffered;

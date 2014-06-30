@@ -57,21 +57,13 @@ describe('buffered-spawn', function () {
             .done();
         });
 
-        it('should not swallow callback errors', function (next) {
-            buffspawn('echo', function () {
-                var d = require('domain').create();
+        it('should give access to the underlying child process', function () {
+            var cp = buffspawn('echo', function () {});
 
-                d.on('error', function (err) {
-                    expect(err.message).to.be('foo');
-                    next();
-                });
+            expect(cp.kill).to.be.a('function');
 
-                d.run(function () {
-                    buffspawn('echo', function () {
-                        throw new Error('foo');
-                    });
-                });
-            });
+            var promise = buffspawn('echo');
+            expect(promise.cp.kill).to.be.a('function');
         });
     });
 
@@ -109,5 +101,22 @@ describe('buffered-spawn', function () {
             next();
         })
         .done();
+    });
+
+    it('should not swallow callback errors', function (next) {
+        buffspawn('echo', function () {
+            var d = require('domain').create();
+
+            d.on('error', function (err) {
+                expect(err.message).to.be('foo');
+                next();
+            });
+
+            d.run(function () {
+                buffspawn('echo', function () {
+                    throw new Error('foo');
+                });
+            });
+        });
     });
 });
