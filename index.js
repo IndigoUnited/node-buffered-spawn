@@ -38,10 +38,7 @@ function execute(command, args, options) {
         }
 
         // Generate the full command to be presented in the error message
-        if (!Array.isArray(args)) {
-            args = [];
-        }
-
+        args = args || [];
         fullCommand = command;
         fullCommand += args.length ? ' ' + args.join(' ') : '';
 
