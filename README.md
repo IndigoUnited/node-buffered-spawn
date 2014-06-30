@@ -41,8 +41,11 @@ buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
 }, function (err) {
     console.err('Command failed with error code of #'  + err.status);
 });
+```
 
-// Promise style with progress
+When using promises you can also get feedback via progress:
+
+```js
 buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
 .progress(function (buff) {
     console.log(buff.toString());
@@ -54,7 +57,6 @@ buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
 }, function (err) {
     console.err('Command failed with error code of #'  + err.status);
 });
-
 ```
 
 
