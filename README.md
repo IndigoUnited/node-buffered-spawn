@@ -45,7 +45,7 @@ buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
 When using promises you can also get feedback via progress:
 
 ```js
-buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
+buffspawn('git', ['clone', 'git@github.com/bower/bower'])
 .progress(function (buff) {
     console.log(buff.toString());
 })
@@ -64,10 +64,10 @@ The actual child process is available if necessary:
 var buffspawn('buffered-spawn');
 
 // Callback style
-var cp = buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, function () { /* */ }};
+var cp = buffspawn('git', ['clone', 'git@github.com/bower/bower'], function () {}};
 
 // Promise style
-var promise = buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' });
+var promise = buffspawn('git', ['clone', 'git@github.com/bower/bower']);
 var cp = promise.cp;
 ```
 
