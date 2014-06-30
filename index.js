@@ -48,10 +48,10 @@ function execute(command, args, options) {
             return deferred.reject(error);
         }
 
-        return deferred.resolve({
-            stdout: stdout.toString(),
-            stderr: stderr.toString()
-        });
+        return deferred.resolve([
+            stdout.toString(),
+            stderr.toString()
+        ]);
     });
 
     return deferred.promise;
@@ -68,8 +68,18 @@ function buffered(command, args, options, callback) {
         args = options = null;
     }
 
-    return execute(command, args, options)
-    .nodeify(callback);
+    var promise = execute(command, args, options);
+
+    if (!callback) {
+        return promise;
+    }
+
+    promise
+    .spread(function (stdout, stderr) {
+        callback(null, stdout, stderr);
+    }, function (err) {
+        callback(err);
+    });
 }
 
 module.exports = buffered;

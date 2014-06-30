@@ -24,20 +24,20 @@ In terms of arguments, they are equal to node's [spawn](http://nodejs.org/api/ch
 var buffspawn('buffered-spawn');
 
 // Callback style
-buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, function (err, output) {
+buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, function (err, stdout, stderr) {
     if (err) {
         return console.err('Command failed with error code of #'  + err.status);
     }
 
-    console.log(output.stdout);
-    console.log(output.stderr);
+    console.log(stdout);
+    console.log(stderr);
 });
 
 // Promise style
 buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
 .spread(function (stdout, stderr) {
-    console.log(output.stdout);
-    console.log(output.stderr);
+    console.log(stdout);
+    console.log(stderr);
 }, function (err) {
     console.err('Command failed with error code of #'  + err.status);
 });
@@ -49,8 +49,8 @@ buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
 })
 .spread(function (stdout, stderr) {
     console.log('---------------------------');
-    console.log(output.stdout);
-    console.log(output.stderr);
+    console.log(stdout);
+    console.log(stderr);
 }, function (err) {
     console.err('Command failed with error code of #'  + err.status);
 });
