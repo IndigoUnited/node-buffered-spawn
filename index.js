@@ -30,11 +30,11 @@ function execute(command, args, options) {
         var fullCommand;
         var error;
 
+        stdout = stdout.toString();
+        stderr = stderr.toString();
+
         if (!code) {
-            return deferred.resolve([
-                stdout.toString(),
-                stderr.toString()
-            ]);
+            return deferred.resolve([stdout, stderr]);
         }
 
         // Generate the full command to be presented in the error message
@@ -47,6 +47,8 @@ function execute(command, args, options) {
 
         // Build the error instance
         error = createError('Failed to execute "' + fullCommand + '", exit code of #' + code, 'ECMDERR', {
+            stderr: stderr,
+            stdout: stdout,
             details: stderr,
             status: code
         });

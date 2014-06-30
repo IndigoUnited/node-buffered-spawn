@@ -25,6 +25,7 @@ var buffspawn('buffered-spawn');
 // Callback style
 buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, function (err, stdout, stderr) {
     if (err) {
+        // Besides err.status there's also err.stdout & err.stderr
         return console.err('Command failed with error code of #'  + err.status);
     }
 
@@ -38,6 +39,7 @@ buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
     console.log(stdout);
     console.log(stderr);
 }, function (err) {
+    // Besides err.status there's also err.stdout & err.stderr
     console.err('Command failed with error code of #'  + err.status);
 });
 ```

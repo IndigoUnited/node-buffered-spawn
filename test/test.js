@@ -119,4 +119,19 @@ describe('buffered-spawn', function () {
             });
         });
     });
+
+    it('should fail on error code != 0 and still give stdout/stderr', function (next) {
+        buffspawn('node', [__dirname + '/fixtures/fail'])
+        .done(function () {
+            next(new Error('Should have failed'));
+        }, function (err) {
+            expect(err).to.be.an(Error);
+            expect(err.status).to.equal(25);
+            expect(err.stdout).to.equal('stdout fail');
+            expect(err.stderr).to.equal('stderr fail');
+            expect(err.details).to.equal(err.stderr);
+
+            next();
+        });
+    });
 });
