@@ -79,7 +79,7 @@ function buffered(command, args, options, callback) {
     .spread(function (stdout, stderr) {
         callback(null, stdout, stderr);
     }, function (err) {
-        callback(err);
+        callback(err, err.stdout, err.stderr);
     })
     .done();
 
