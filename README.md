@@ -24,8 +24,8 @@ var buffspawn('buffered-spawn');
 
 // Callback style
 buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, function (err, stdout, stderr) {
+    // Both stdout and stderr are set with the buffered output, even on failure
     if (err) {
-        // Besides err.status there's also err.stdout & err.stderr
         return console.err('Command failed with error code of #'  + err.status);
     }
 
