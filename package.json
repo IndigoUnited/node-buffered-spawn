@@ -28,7 +28,7 @@
     }
   ],
   "dependencies": {
-    "cross-spawn": "^0.1.0",
+    "cross-spawn": "^0.2.4",
     "err-code": "^0.1.0",
     "q": "^1.0.1"
   },
