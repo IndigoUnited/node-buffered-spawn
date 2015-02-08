@@ -1,6 +1,6 @@
 {
   "name": "buffered-spawn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Buffered child process#spawn.",
   "author": "The Bower authors",
   "main": "index.js",
