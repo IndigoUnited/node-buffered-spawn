@@ -46,6 +46,7 @@ describe('buffered-spawn', function () {
             .progress(function (data) {
                 expect(data).to.be.an(Buffer);
                 expect(data.length).to.be.greaterThan(0);
+                expect(data.type).to.equal('stdout');
                 progressCount += 1;
             })
             .spread(function (stdout) {
