@@ -12,10 +12,12 @@ function execute(command, args, options) {
     process = spawn(command, args, options);
     process.stdout.on('data', function (data) {
         stdout = Buffer.concat([stdout, data]);
+        data.type = 'stdout';
         deferred.notify(data);
     });
     process.stderr.on('data', function (data) {
         stderr = Buffer.concat([stderr, data]);
+        data.type = 'stderr';
         deferred.notify(data);
     });
 
