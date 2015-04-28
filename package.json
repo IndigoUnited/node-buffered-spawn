@@ -34,5 +34,8 @@
   "devDependencies": {
     "mocha": "^1.8.1",
     "expect.js": "^0.3.0"
-  }
+  },
+  "files": [
+    "index.js"  
+  ]
 }
