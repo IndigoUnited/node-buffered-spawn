@@ -3,7 +3,6 @@
   "version": "1.1.0",
   "description": "Buffered child process#spawn.",
   "author": "The Bower authors",
-  "main": "index.js",
   "scripts": {
     "test": "mocha -R spec"
   },
