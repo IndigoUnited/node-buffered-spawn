@@ -10,16 +10,20 @@ function execute(command, args, options) {
 
     // Buffer output, reporting progress
     process = spawn(command, args, options);
-    process.stdout.on('data', function (data) {
-        stdout = Buffer.concat([stdout, data]);
-        data.type = 'stdout';
-        deferred.notify(data);
-    });
-    process.stderr.on('data', function (data) {
-        stderr = Buffer.concat([stderr, data]);
-        data.type = 'stderr';
-        deferred.notify(data);
-    });
+    if (process.stdout) {
+        process.stdout.on('data', function (data) {
+            stdout = Buffer.concat([stdout, data]);
+            data.type = 'stdout';
+            deferred.notify(data);
+        });
+    }
+    if (process.stderr) {
+        process.stderr.on('data', function (data) {
+            stderr = Buffer.concat([stderr, data]);
+            data.type = 'stderr';
+            deferred.notify(data);
+        });
+    }
 
     // If there is an error spawning the command, reject the promise
     process.on('error', function (error) {
