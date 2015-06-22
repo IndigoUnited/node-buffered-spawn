@@ -36,6 +36,32 @@ describe('buffered-spawn', function () {
             });
         });
 
+        it('should allow node\'s spawn\'s stdout to be ignored', function (next) {
+            buffspawn('node', ['simple'], {
+                cwd: __dirname + '/fixtures',
+                stdio: ['pipe', 'ignore', 'pipe']
+            }, function (err, stdout, stderr) {
+                expect(err).to.not.be.ok();
+                expect(stdout).to.equal('');
+                expect(stderr).to.equal('i am being printed on stderr');
+
+                next();
+            });
+        });
+
+        it('should allow node\'s spawn\'s stderr to be ignored', function (next) {
+            buffspawn('node', ['simple'], {
+                cwd: __dirname + '/fixtures',
+                stdio: ['pipe', 'pipe', 'ignore']
+            }, function (err, stdout, stderr) {
+                expect(err).to.not.be.ok();
+                expect(stdout).to.equal('i am being printed on stdout');
+                expect(stderr).to.equal('');
+
+                next();
+            });
+        });
+
         it('should work with promises', function (next) {
             var progressCount = 0;
 
