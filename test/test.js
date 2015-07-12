@@ -1,7 +1,7 @@
 'use strict';
 
 var buffspawn = require('../index');
-var expect = require('expect.js');
+var expect    = require('expect.js');
 
 var isWin = process.platform === 'win32';
 
@@ -14,6 +14,20 @@ describe('buffered-spawn', function () {
             });
         });
 
+        it('should handle optional args', function (next) {
+            buffspawn(__dirname + '/fixtures/hello', { stdio: ['pipe', 'ignore', 'ignore'] }, function (err, stdout) {
+                expect(err).to.not.be.ok();
+                expect(stdout).to.be('');
+
+                buffspawn(__dirname + '/fixtures/hello', null, { stdio: ['pipe', 'ignore', 'ignore'] }, function (err, stdout) {
+                    expect(err).to.not.be.ok();
+                    expect(stdout).to.be('');
+
+                    next();
+                });
+            });
+        });
+
         it('should handle optional options', function (next) {
             buffspawn('node', [
                 __dirname + '/fixtures/echo',
@@ -22,7 +36,15 @@ describe('buffered-spawn', function () {
                 expect(err).to.not.be.ok();
                 expect(stdout.trim()).to.equal('foo');
 
-                next();
+                buffspawn('node', [
+                    __dirname + '/fixtures/echo',
+                    'foo'
+                ], null, function (err, stdout) {
+                    expect(err).to.not.be.ok();
+                    expect(stdout.trim()).to.equal('foo');
+
+                    next();
+                });
             });
         });
 

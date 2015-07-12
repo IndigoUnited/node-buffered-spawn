@@ -20,14 +20,9 @@
     "path_ext",
     "bower"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/bower/buffered-spawn/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "dependencies": {
-    "cross-spawn": "^0.2.4",
+    "cross-spawn-async": "^1.0.1",
     "err-code": "^0.1.0",
     "q": "^1.0.1"
   },

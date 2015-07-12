@@ -1,6 +1,6 @@
-var spawn = require('cross-spawn');
+var spawn       = require('cross-spawn-async');
 var createError = require('err-code');
-var Q = require('q');
+var Q           = require('q');
 
 function execute(command, args, options) {
     var process;
@@ -72,6 +72,10 @@ function buffered(command, args, options, callback) {
     if (typeof args === 'function') {
         callback = args;
         args = options = null;
+    }
+    if (args && !Array.isArray(args)) {
+        options = args;
+        args = null;
     }
 
     var promise = execute(command, args, options);
