@@ -4,7 +4,7 @@
   "description": "Buffered child process#spawn.",
   "author": "The Bower authors",
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha --bail -R spec"
   },
   "repository": "bower/buffered-spawn",
   "engines": {

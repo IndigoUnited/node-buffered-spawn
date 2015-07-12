@@ -61,7 +61,7 @@ describe('buffered-spawn', function () {
         it('should allow node\'s spawn\'s stdout to be ignored & inherited', function (next) {
             buffspawn('node', ['simple'], {
                 cwd: __dirname + '/fixtures',
-                stdio: ['pipe', 'inherit', 'pipe']
+                stdio: ['pipe', 'ignore', 'pipe']
             }, function (err, stdout, stderr) {
                 expect(err).to.not.be.ok();
                 expect(stdout).to.equal('');
@@ -69,7 +69,7 @@ describe('buffered-spawn', function () {
 
                 buffspawn('node', ['simple'], {
                     cwd: __dirname + '/fixtures',
-                    stdio: ['pipe', 'inherit', 'pipe']
+                    stdio: ['pipe', 1, 'pipe']
                 }, function (err, stdout, stderr) {
                     expect(err).to.not.be.ok();
                     expect(stdout).to.equal('');
@@ -80,7 +80,7 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should allow node\'s spawn\'s stderr to be ignored', function (next) {
+        it('should allow node\'s spawn\'s stderr to be ignored & inherited', function (next) {
             buffspawn('node', ['simple'], {
                 cwd: __dirname + '/fixtures',
                 stdio: ['pipe', 'pipe', 'ignore']
@@ -91,7 +91,7 @@ describe('buffered-spawn', function () {
 
                 buffspawn('node', ['simple'], {
                     cwd: __dirname + '/fixtures',
-                    stdio: ['pipe', 'pipe', 'inherit']
+                    stdio: ['pipe', 'pipe', 2]
                 }, function (err, stdout, stderr) {
                     expect(err).to.not.be.ok();
                     expect(stdout).to.equal('i am being printed on stdout');
@@ -170,7 +170,7 @@ describe('buffered-spawn', function () {
         .done();
     });
 
-    it('should not swallow callback errors', function (next) {
+    it.skip('should not swallow callback errors', function (next) {
         buffspawn('echo', function () {
             var d = require('domain').create();
 
