@@ -10,6 +10,7 @@ function execute(command, args, options) {
 
     // Buffer output, reporting progress
     process = spawn(command, args, options);
+
     if (process.stdout) {
         process.stdout.on('data', function (data) {
             stdout = Buffer.concat([stdout, data]);

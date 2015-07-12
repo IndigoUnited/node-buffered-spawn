@@ -58,16 +58,25 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should allow node\'s spawn\'s stdout to be ignored', function (next) {
+        it('should allow node\'s spawn\'s stdout to be ignored & inherited', function (next) {
             buffspawn('node', ['simple'], {
                 cwd: __dirname + '/fixtures',
-                stdio: ['pipe', 'ignore', 'pipe']
+                stdio: ['pipe', 'inherit', 'pipe']
             }, function (err, stdout, stderr) {
                 expect(err).to.not.be.ok();
                 expect(stdout).to.equal('');
                 expect(stderr).to.equal('i am being printed on stderr');
 
-                next();
+                buffspawn('node', ['simple'], {
+                    cwd: __dirname + '/fixtures',
+                    stdio: ['pipe', 'inherit', 'pipe']
+                }, function (err, stdout, stderr) {
+                    expect(err).to.not.be.ok();
+                    expect(stdout).to.equal('');
+                    expect(stderr).to.equal('i am being printed on stderr');
+
+                    next();
+                });
             });
         });
 
@@ -80,7 +89,16 @@ describe('buffered-spawn', function () {
                 expect(stdout).to.equal('i am being printed on stdout');
                 expect(stderr).to.equal('');
 
-                next();
+                buffspawn('node', ['simple'], {
+                    cwd: __dirname + '/fixtures',
+                    stdio: ['pipe', 'pipe', 'inherit']
+                }, function (err, stdout, stderr) {
+                    expect(err).to.not.be.ok();
+                    expect(stdout).to.equal('i am being printed on stdout');
+                    expect(stderr).to.equal('');
+
+                    next();
+                });
             });
         });
 
