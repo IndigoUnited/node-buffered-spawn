@@ -103,25 +103,26 @@ describe('buffered-spawn', function () {
         });
 
         it('should work with promises', function (next) {
-            var progressCount = 0;
-
             buffspawn('node', [
                 __dirname + '/fixtures/echo',
                 'foo'
             ])
-            .progress(function (data) {
-                expect(data).to.be.an(Buffer);
-                expect(data.length).to.be.greaterThan(0);
-                expect(data.type).to.equal('stdout');
-                progressCount += 1;
-            })
-            .spread(function (stdout) {
-                expect(stdout.trim()).to.equal('foo');
-                expect(progressCount).to.equal(1);
+            .then(function (io) {
+                expect(io.stdout.trim()).to.equal('foo');
+                expect(io.stderr.trim()).to.equal('');
 
-                next();
+                return buffspawn('node', [__dirname + '/fixtures/fail']);
             })
-            .done();
+            .then(function () {
+                throw next(new Error('Should have failed'));
+            }, function (err) {
+                expect(err).to.be.an(Error);
+                expect(err.status).to.equal(25);
+                expect(err.stdout).to.equal('stdout fail');
+                expect(err.stderr).to.equal('stderr fail');
+                expect(err.details).to.equal(err.stderr);
+            })
+            .done(next, next);
         });
 
         it('should give access to the underlying child process', function () {
@@ -136,13 +137,11 @@ describe('buffered-spawn', function () {
 
     it('should buffer stdout & stderr', function (next) {
         buffspawn('node', [__dirname + '/fixtures/simple'])
-        .spread(function (stdout, stderr) {
-            expect(stdout).to.equal('i am being printed on stdout');
-            expect(stderr).to.equal('i am being printed on stderr');
-
-            next();
+        .then(function (io) {
+            expect(io.stdout).to.equal('i am being printed on stdout');
+            expect(io.stderr).to.equal('i am being printed on stderr');
         })
-        .done();
+        .done(next, next);
     });
 
     it('should expand using PATH_EXT properly', function (next) {
@@ -151,54 +150,34 @@ describe('buffered-spawn', function () {
         }
 
         buffspawn(__dirname + '/fixtures/foo')  // Should expand to foo.bat
-        .spread(function (stdout) {
-            expect(stdout.trim()).to.equal('foo');
-
-            next();
+        .then(function (io) {
+            expect(io.stdout.trim()).to.equal('foo');
         })
-        .done();
+        .done(next, next);
     });
 
     it('should handle multibyte properly', function (next) {
         buffspawn('node', [__dirname + '/fixtures/multibyte'])
-        .spread(function (stdout, stderr) {
-            expect(stdout).to.equal('こんにちは');
-            expect(stderr).to.equal('こんにちは');
-
-            next();
+        .then(function (io) {
+            expect(io.stdout).to.equal('こんにちは');
+            expect(io.stderr).to.equal('こんにちは');
         })
-        .done();
+        .done(next, next);
     });
 
-    it.skip('should not swallow callback errors', function (next) {
-        buffspawn('echo', function () {
-            var d = require('domain').create();
-
-            d.on('error', function (err) {
-                expect(err.message).to.be('foo');
-                next();
-            });
-
-            d.run(function () {
-                buffspawn('echo', function () {
-                    throw new Error('foo');
-                });
-            });
-        });
-    });
+    it.skip('should not swallow callback errors');
 
     it('should fail on error code != 0 and still give stdout/stderr', function (next) {
         buffspawn('node', [__dirname + '/fixtures/fail'])
-        .done(function () {
-            next(new Error('Should have failed'));
+        .then(function () {
+            throw new Error('Should have failed');
         }, function (err) {
             expect(err).to.be.an(Error);
             expect(err.status).to.equal(25);
             expect(err.stdout).to.equal('stdout fail');
             expect(err.stderr).to.equal('stderr fail');
             expect(err.details).to.equal(err.stderr);
-
-            next();
-        });
+        })
+        .done(next, next);
     });
 });
