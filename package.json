@@ -1,6 +1,6 @@
 {
   "name": "buffered-spawn",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Buffered child process#spawn.",
   "scripts": {
     "test": "mocha --bail -R spec"
