@@ -1,6 +1,6 @@
 {
   "name": "buffered-spawn",
-  "version": "1.1.2",
+  "version": "2.0.0",
   "description": "Buffered child process#spawn.",
   "scripts": {
     "test": "mocha --bail -R spec"
@@ -25,11 +25,11 @@
   "license": "MIT",
   "dependencies": {
     "cross-spawn-async": "^1.0.1",
-    "err-code": "^0.1.0",
-    "promise": "^7.1.1",
+    "err-code": "^1.0.0",
+    "promise": "^7.1.1"
   },
   "devDependencies": {
-    "mocha": "^1.8.1",
-    "expect.js": "^0.3.0"
+    "mocha": "^2.3.4",
+    "expect.js": "^0.3.1"
   }
 }
