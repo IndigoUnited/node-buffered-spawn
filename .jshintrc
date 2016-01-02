@@ -6,7 +6,8 @@
         "after",
         "afterEach",
         "before",
-        "beforeEach"
+        "beforeEach",
+        "Promise"
     ],
 
     "indent": 4,

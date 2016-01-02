@@ -1,6 +1,5 @@
 var spawn = require('cross-spawn-async');
 var createError = require('err-code');
-var Promise = require('promise');
 
 function execute(command, args, options) {
     var cp;
@@ -84,7 +83,11 @@ function buffered(command, args, options, callback) {
     .then(function (io) {
         callback(null, io.stdout, io.stderr);
     }, callback)
-    .done();
+    .then(null, function (err) {
+        setTimeout(function () {
+            throw err;
+        }, 1);
+    });
 
     return promise.cp;
 }

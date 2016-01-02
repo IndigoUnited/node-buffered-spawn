@@ -1,7 +1,7 @@
 'use strict';
 
 var buffspawn = require('../index');
-var expect    = require('expect.js');
+var expect = require('expect.js');
 
 var isWin = process.platform === 'win32';
 
@@ -102,8 +102,8 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should work with promises', function (next) {
-            buffspawn('node', [
+        it('should work with promises', function () {
+            return buffspawn('node', [
                 __dirname + '/fixtures/echo',
                 'foo'
             ])
@@ -121,8 +121,7 @@ describe('buffered-spawn', function () {
                 expect(err.stdout).to.equal('stdout fail');
                 expect(err.stderr).to.equal('stderr fail');
                 expect(err.details).to.equal(err.stderr);
-            })
-            .done(next, next);
+            });
         });
 
         it('should give access to the underlying child process', function () {
@@ -135,40 +134,37 @@ describe('buffered-spawn', function () {
         });
     });
 
-    it('should buffer stdout & stderr', function (next) {
-        buffspawn('node', [__dirname + '/fixtures/simple'])
+    it('should buffer stdout & stderr', function () {
+        return buffspawn('node', [__dirname + '/fixtures/simple'])
         .then(function (io) {
             expect(io.stdout).to.equal('i am being printed on stdout');
             expect(io.stderr).to.equal('i am being printed on stderr');
-        })
-        .done(next, next);
+        });
     });
 
-    it('should expand using PATH_EXT properly', function (next) {
+    it('should expand using PATH_EXT properly', function () {
         if (!isWin) {
-            return next();
+            return Promise.resolve();
         }
 
-        buffspawn(__dirname + '/fixtures/foo')  // Should expand to foo.bat
+        return buffspawn(__dirname + '/fixtures/foo')  // Should expand to foo.bat
         .then(function (io) {
             expect(io.stdout.trim()).to.equal('foo');
-        })
-        .done(next, next);
+        });
     });
 
-    it('should handle multibyte properly', function (next) {
-        buffspawn('node', [__dirname + '/fixtures/multibyte'])
+    it('should handle multibyte properly', function () {
+        return buffspawn('node', [__dirname + '/fixtures/multibyte'])
         .then(function (io) {
             expect(io.stdout).to.equal('こんにちは');
             expect(io.stderr).to.equal('こんにちは');
-        })
-        .done(next, next);
+        });
     });
 
     it.skip('should not swallow callback errors');
 
-    it('should fail on error code != 0 and still give stdout/stderr', function (next) {
-        buffspawn('node', [__dirname + '/fixtures/fail'])
+    it('should fail on error code != 0 and still give stdout/stderr', function () {
+        return buffspawn('node', [__dirname + '/fixtures/fail'])
         .then(function () {
             throw new Error('Should have failed');
         }, function (err) {
@@ -177,7 +173,6 @@ describe('buffered-spawn', function () {
             expect(err.stdout).to.equal('stdout fail');
             expect(err.stderr).to.equal('stderr fail');
             expect(err.details).to.equal(err.stderr);
-        })
-        .done(next, next);
+        });
     });
 });
