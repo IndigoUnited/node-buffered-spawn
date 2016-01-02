@@ -24,7 +24,7 @@
   "author": "IndigoUnited <hello@indigounited.com> (http://indigounited.com)",
   "license": "MIT",
   "dependencies": {
-    "cross-spawn-async": "^1.0.1",
+    "cross-spawn-async": "^2.1.6",
     "err-code": "^1.0.0",
     "promise": "^7.1.1"
   },
