@@ -3,7 +3,7 @@
   "version": "2.0.2",
   "description": "Buffered child process#spawn.",
   "scripts": {
-    "test": "mocha --bail -R spec"
+    "test": "mocha --bail"
   },
   "bugs": {
     "url": "https://github.com/IndigoUnited/node-buffered-spawn/issues/"
@@ -23,8 +23,8 @@
   ],
   "author": "IndigoUnited <hello@indigounited.com> (http://indigounited.com)",
   "license": "MIT",
-  "engines" : {
-    "node" : ">=0.12"
+  "engines": {
+    "node": ">=0.12"
   },
   "dependencies": {
     "cross-spawn-async": "^2.1.6",
