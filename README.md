@@ -32,10 +32,10 @@ Buffered child_process#spawn.
 In terms of arguments, they are equal to node's [spawn](http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
 
 ```js
-var buffspawn = require('buffered-spawn');
+var bufferedSpawn = require('buffered-spawn');
 
 // Callback style
-buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, function (err, stdout, stderr) {
+bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, function (err, stdout, stderr) {
     if (err) {
         // Both stdout and stderr are also set on the error object
         return console.err('Command failed with error code of #'  + err.status);
@@ -46,7 +46,7 @@ buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, func
 });
 
 // Promise style
-buffspawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
+bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
 .then(function (io) {
     console.log(io.stdout);
     console.log(io.stderr);
