@@ -1,5 +1,7 @@
+'use strict';
+
 var spawn = require('cross-spawn-async');
-var createError = require('err-code');
+var errcode = require('err-code');
 
 function execute(command, args, options) {
     var cp;
@@ -43,11 +45,11 @@ function execute(command, args, options) {
             fullCommand += args.length ? ' ' + args.join(' ') : '';
 
             // Build the error instance
-            error = createError('Failed to execute "' + fullCommand + '", exit code of #' + code, 'ECMDERR', {
+            error = errcode('Failed to execute "' + fullCommand + '", exit code of #' + code, 'ECMDERR', {
                 stderr: stderr,
                 stdout: stdout,
                 details: stderr,
-                status: code
+                status: code,
             });
 
             return reject(error);
@@ -60,6 +62,8 @@ function execute(command, args, options) {
 }
 
 function buffered(command, args, options, callback) {
+    var promise;
+
     if (typeof options === 'function') {
         callback = options;
         options = null;
@@ -73,7 +77,7 @@ function buffered(command, args, options, callback) {
         args = null;
     }
 
-    var promise = execute(command, args, options);
+    promise = execute(command, args, options);
 
     if (!callback) {
         return promise;

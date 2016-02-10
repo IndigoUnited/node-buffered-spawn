@@ -23,14 +23,15 @@
   ],
   "author": "IndigoUnited <hello@indigounited.com> (http://indigounited.com)",
   "license": "MIT",
-  "engines" : {
-    "node" : ">=0.12"
+  "engines": {
+    "node": ">=0.12"
   },
   "dependencies": {
     "cross-spawn-async": "^2.1.6",
     "err-code": "^1.0.0"
   },
   "devDependencies": {
+    "@satazor/eslint-config": "^1.0.12",
     "expect.js": "^0.3.1",
     "mocha": "^2.3.4"
   }
