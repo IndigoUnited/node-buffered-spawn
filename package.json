@@ -3,7 +3,7 @@
   "version": "2.0.2",
   "description": "Buffered child process#spawn.",
   "scripts": {
-    "test": "mocha --bail -R spec"
+    "test": "mocha --bail"
   },
   "bugs": {
     "url": "https://github.com/IndigoUnited/node-buffered-spawn/issues/"
