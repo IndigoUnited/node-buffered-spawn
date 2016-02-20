@@ -1,6 +1,6 @@
 {
   "name": "buffered-spawn",
-  "version": "2.0.4",
+  "version": "3.0.0",
   "description": "Buffered child process#spawn.",
   "scripts": {
     "lint": "eslint **/*.js",
