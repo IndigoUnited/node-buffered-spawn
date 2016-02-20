@@ -1,8 +1,9 @@
 {
   "name": "buffered-spawn",
-  "version": "2.0.2",
+  "version": "2.0.4",
   "description": "Buffered child process#spawn.",
   "scripts": {
+    "lint": "eslint **/*.js",
     "test": "mocha --bail"
   },
   "bugs": {
@@ -24,14 +25,15 @@
   "author": "IndigoUnited <hello@indigounited.com> (http://indigounited.com)",
   "license": "MIT",
   "engines": {
-    "node": ">=0.12"
+    "node": ">=4.0.0"
   },
   "dependencies": {
     "cross-spawn-async": "^2.1.6",
     "err-code": "^1.0.0"
   },
   "devDependencies": {
-    "@satazor/eslint-config": "^1.0.12",
+    "@satazor/eslint-config": "^2.0.0",
+    "eslint": "^2.2.0",
     "expect.js": "^0.3.1",
     "mocha": "^2.3.4"
   }

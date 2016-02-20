@@ -32,10 +32,10 @@ Buffered child_process#spawn.
 In terms of arguments, they are equal to node's [spawn](http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options).
 
 ```js
-var bufferedSpawn = require('buffered-spawn');
+const bufferedSpawn = require('buffered-spawn');
 
 // Callback style
-bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, function (err, stdout, stderr) {
+bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '.' }, (err, stdout, stderr) => {
     if (err) {
         // Both stdout and stderr are also set on the error object
         return console.err('Command failed with error code of #'  + err.status);
@@ -45,12 +45,12 @@ bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' }, 
     console.log(stderr);
 });
 
-// Promise style
-bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
-.then(function (io) {
+// ...or Promise style
+bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '.' })
+.then((io) => {
     console.log(io.stdout);
     console.log(io.stderr);
-}, function (err) {
+}, (err) => {
     // Both stdout and stderr are also set on the error object
     console.err('Command failed with error code of #'  + err.status);
 });
@@ -59,14 +59,14 @@ bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '~/foo' })
 The actual child process is available if necessary:
 
 ```js
-var buffspawn('buffered-spawn');
+const buffspawn('buffered-spawn');
 
 // Callback style
-var cp = buffspawn('git', ['clone', 'git@github.com/bower/bower'], function () {}};
+const cp = buffspawn('git', ['clone', 'git@github.com/bower/bower'], () => {}};
 
-// Promise style
-var promise = buffspawn('git', ['clone', 'git@github.com/bower/bower']);
-var cp = promise.cp;
+// ...or Promise style
+const promise = buffspawn('git', ['clone', 'git@github.com/bower/bower']);
+const cp = promise.cp;
 ```
 
 

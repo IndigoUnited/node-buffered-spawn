@@ -1,29 +1,29 @@
 'use strict';
 
-var bufferedSpawn = require('../index');
-var expect = require('expect.js');
+const bufferedSpawn = require('../index');
+const expect = require('expect.js');
 
-var isWin = process.platform === 'win32';
+const isWin = process.platform === 'win32';
 
-describe('buffered-spawn', function () {
-    describe('api', function () {
-        it('should handle optional args & options', function (next) {
-            bufferedSpawn('echo', function (err) {
+describe('buffered-spawn', () => {
+    describe('api', () => {
+        it('should handle optional args & options', (next) => {
+            bufferedSpawn('echo', (err) => {
                 expect(err).to.not.be.ok();
                 next();
             });
         });
 
-        it('should handle optional args', function (next) {
-            bufferedSpawn(__dirname + '/fixtures/hello', {
+        it('should handle optional args', (next) => {
+            bufferedSpawn(`${__dirname}/fixtures/hello`, {
                 stdio: ['pipe', 'ignore', 'ignore'],
-            }, function (err, stdout) {
+            }, (err, stdout) => {
                 expect(err).to.not.be.ok();
                 expect(stdout).to.be('');
 
-                bufferedSpawn(__dirname + '/fixtures/hello', null, {
+                bufferedSpawn(`${__dirname}/fixtures/hello`, null, {
                     stdio: ['pipe', 'ignore', 'ignore'],
-                }, function (err, stdout) {
+                }, (err, stdout) => {
                     expect(err).to.not.be.ok();
                     expect(stdout).to.be('');
 
@@ -32,18 +32,18 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should handle optional options', function (next) {
+        it('should handle optional options', (next) => {
             bufferedSpawn('node', [
-                __dirname + '/fixtures/echo',
+                `${__dirname}/fixtures/echo`,
                 'foo',
-            ], function (err, stdout) {
+            ], (err, stdout) => {
                 expect(err).to.not.be.ok();
                 expect(stdout.trim()).to.equal('foo');
 
                 bufferedSpawn('node', [
-                    __dirname + '/fixtures/echo',
+                    `${__dirname}/fixtures/echo`,
                     'foo',
-                ], null, function (err, stdout) {
+                ], null, (err, stdout) => {
                     expect(err).to.not.be.ok();
                     expect(stdout.trim()).to.equal('foo');
 
@@ -52,8 +52,8 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should pass arguments to node\'s spawn', function (next) {
-            bufferedSpawn('node', ['simple'], { cwd: __dirname + '/fixtures' }, function (err, stdout, stderr) {
+        it('should pass arguments to node\'s spawn', (next) => {
+            bufferedSpawn('node', ['simple'], { cwd: `${__dirname}/fixtures` }, (err, stdout, stderr) => {
                 expect(err).to.not.be.ok();
                 expect(stdout).to.equal('i am being printed on stdout');
                 expect(stderr).to.equal('i am being printed on stderr');
@@ -62,19 +62,19 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should allow node\'s spawn\'s stdout to be ignored & inherited', function (next) {
+        it('should allow node\'s spawn\'s stdout to be ignored & inherited', (next) => {
             bufferedSpawn('node', ['simple'], {
-                cwd: __dirname + '/fixtures',
+                cwd: `${__dirname}/fixtures`,
                 stdio: ['pipe', 'ignore', 'pipe'],
-            }, function (err, stdout, stderr) {
+            }, (err, stdout, stderr) => {
                 expect(err).to.not.be.ok();
                 expect(stdout).to.equal('');
                 expect(stderr).to.equal('i am being printed on stderr');
 
                 bufferedSpawn('node', ['simple'], {
-                    cwd: __dirname + '/fixtures',
+                    cwd: `${__dirname}/fixtures`,
                     stdio: ['pipe', 1, 'pipe'],
-                }, function (err, stdout, stderr) {
+                }, (err, stdout, stderr) => {
                     expect(err).to.not.be.ok();
                     expect(stdout).to.equal('');
                     expect(stderr).to.equal('i am being printed on stderr');
@@ -84,19 +84,19 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should allow node\'s spawn\'s stderr to be ignored & inherited', function (next) {
+        it('should allow node\'s spawn\'s stderr to be ignored & inherited', (next) => {
             bufferedSpawn('node', ['simple'], {
-                cwd: __dirname + '/fixtures',
+                cwd: `${__dirname}/fixtures`,
                 stdio: ['pipe', 'pipe', 'ignore'],
-            }, function (err, stdout, stderr) {
+            }, (err, stdout, stderr) => {
                 expect(err).to.not.be.ok();
                 expect(stdout).to.equal('i am being printed on stdout');
                 expect(stderr).to.equal('');
 
                 bufferedSpawn('node', ['simple'], {
-                    cwd: __dirname + '/fixtures',
+                    cwd: `${__dirname}/fixtures`,
                     stdio: ['pipe', 'pipe', 2],
-                }, function (err, stdout, stderr) {
+                }, (err, stdout, stderr) => {
                     expect(err).to.not.be.ok();
                     expect(stdout).to.equal('i am being printed on stdout');
                     expect(stderr).to.equal('');
@@ -106,20 +106,20 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should work with promises', function () {
+        it('should work with promises', () => {
             return bufferedSpawn('node', [
-                __dirname + '/fixtures/echo',
+                `${__dirname}/fixtures/echo`,
                 'foo',
             ])
-            .then(function (io) {
+            .then((io) => {
                 expect(io.stdout.trim()).to.equal('foo');
                 expect(io.stderr.trim()).to.equal('');
 
-                return bufferedSpawn('node', [__dirname + '/fixtures/fail']);
+                return bufferedSpawn('node', [`${__dirname}/fixtures/fail`]);
             })
-            .then(function () {
+            .then(() => {
                 throw new Error('Should have failed');
-            }, function (err) {
+            }, (err) => {
                 expect(err).to.be.an(Error);
                 expect(err.status).to.equal(25);
                 expect(err.stdout).to.equal('stdout fail');
@@ -128,50 +128,49 @@ describe('buffered-spawn', function () {
             });
         });
 
-        it('should give access to the underlying child process', function () {
-            var promise;
-            var cp;
+        it('should give access to the underlying child process', () => {
+            const cp = bufferedSpawn('echo', () => {});
 
-            cp = bufferedSpawn('echo', function () {});
             expect(cp.kill).to.be.a('function');
 
-            promise = bufferedSpawn('echo');
+            const promise = bufferedSpawn('echo');
+
             expect(promise.cp.kill).to.be.a('function');
         });
     });
 
-    it('should buffer stdout & stderr', function () {
-        return bufferedSpawn('node', [__dirname + '/fixtures/simple'])
-        .then(function (io) {
+    it('should buffer stdout & stderr', () => {
+        return bufferedSpawn('node', [`${__dirname}/fixtures/simple`])
+        .then((io) => {
             expect(io.stdout).to.equal('i am being printed on stdout');
             expect(io.stderr).to.equal('i am being printed on stderr');
         });
     });
 
-    it('should expand using PATH_EXT properly', function () {
+    it('should expand using PATH_EXT properly', () => {
         if (!isWin) {
             return Promise.resolve();
         }
 
-        return bufferedSpawn(__dirname + '/fixtures/foo')  // Should expand to foo.bat
-        .then(function (io) {
+        return bufferedSpawn(`${__dirname}/fixtures/foo`)  // Should expand to foo.bat
+        .then((io) => {
             expect(io.stdout.trim()).to.equal('foo');
         });
     });
 
-    it('should handle multibyte properly', function () {
-        return bufferedSpawn('node', [__dirname + '/fixtures/multibyte'])
-        .then(function (io) {
+    it('should handle multibyte properly', () => {
+        return bufferedSpawn('node', [`${__dirname}/fixtures/multibyte`])
+        .then((io) => {
             expect(io.stdout).to.equal('こんにちは');
             expect(io.stderr).to.equal('こんにちは');
         });
     });
 
-    it('should fail on error code != 0 and still give stdout/stderr', function () {
-        return bufferedSpawn('node', [__dirname + '/fixtures/fail'])
-        .then(function () {
+    it('should fail on error code != 0 and still give stdout/stderr', () => {
+        return bufferedSpawn('node', [`${__dirname}/fixtures/fail`])
+        .then(() => {
             throw new Error('Should have failed');
-        }, function (err) {
+        }, (err) => {
             expect(err).to.be.an(Error);
             expect(err.status).to.equal(25);
             expect(err.stdout).to.equal('stdout fail');
