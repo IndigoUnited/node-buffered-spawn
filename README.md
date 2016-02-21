@@ -6,7 +6,7 @@
 [downloads-image]:http://img.shields.io/npm/dm/buffered-spawn.svg
 [npm-image]:http://img.shields.io/npm/v/buffered-spawn.svg
 [travis-url]:https://travis-ci.org/IndigoUnited/node-buffered-spawn
-[travis-image]:http://img.shields.io/travis/IndigoUnited/node-buffered-spawn.svg
+[travis-image]:http://img.shields.io/travis/IndigoUnited/node-buffered-spawn/master.svg
 [david-dm-url]:https://david-dm.org/IndigoUnited/node-buffered-spawn
 [david-dm-image]:https://img.shields.io/david/IndigoUnited/node-buffered-spawn.svg
 [david-dm-dev-url]:https://david-dm.org/IndigoUnited/node-buffered-spawn#info=devDependencies
