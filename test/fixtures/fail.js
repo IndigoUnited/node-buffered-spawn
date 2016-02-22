@@ -1,3 +1,5 @@
+'use strict';
+
 process.stdout.write('stdout fail');
 process.stderr.write('stderr fail');
 
