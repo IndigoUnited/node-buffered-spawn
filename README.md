@@ -38,7 +38,7 @@ const bufferedSpawn = require('buffered-spawn');
 bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '.' }, (err, stdout, stderr) => {
     if (err) {
         // Both stdout and stderr are also set on the error object
-        return console.err('Command failed with error code of #'  + err.status);
+        return console.error(`Command failed with error code of #${err.status}`);
     }
 
     console.log(stdout);
@@ -52,7 +52,7 @@ bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '.' })
     console.log(io.stderr);
 }, (err) => {
     // Both stdout and stderr are also set on the error object
-    console.err('Command failed with error code of #'  + err.status);
+    console.error(`Command failed with error code of #${err.status}`);
 });
 ```
 
