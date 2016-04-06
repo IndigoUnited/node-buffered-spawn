@@ -28,7 +28,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "cross-spawn-async": "^2.1.9",
+    "cross-spawn-async": "^2.2.0",
     "err-code": "^1.0.0"
   },
   "devDependencies": {
