@@ -72,7 +72,10 @@ const cp = promise.cp;
 As said before, `buffered-spawn` uses `cross-spawn` to actually spawn the process. If you are having trouble running Windows such as [wmic](https://msdn.microsoft.com/en-us/library/bb742610.aspx) which has its own arguments parser, you may disable like so:
 
 ```js
-const cp = buffspawn('wmic', ['logicaldisk', 'where', 'DeviceID="Z:"', 'get' 'freeSpace,size'], { crossSpawn: false }, () => {}};
+const cp = buffspawn('wmic', [
+    'logicaldisk', 'where', 'DeviceID="Z:"',
+    'get' 'freeSpace,size'
+], { crossSpawn: false }, () => {}};
 ```
 
 ## Tests
