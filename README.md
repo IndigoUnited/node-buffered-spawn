@@ -23,7 +23,7 @@ Buffered child_process#spawn.
 ## Why
 
 - Easy to use
-- Uses [cross-spawn](http://github.com/IndigoUnited/node-cross-spawn) that fixes windows [issues](https://github.com/joyent/node/issues/2318)
+- Uses [cross-spawn](http://github.com/IndigoUnited/node-cross-spawn) by default, which fixes windows [issues](https://github.com/joyent/node/issues/2318)
 - Supports callback & promise style
 
 
@@ -69,6 +69,11 @@ const promise = buffspawn('git', ['clone', 'git@github.com/bower/bower']);
 const cp = promise.cp;
 ```
 
+As said before, `buffered-spawn` uses `cross-spawn` to actually spawn the process. If you are having trouble running Windows such as [wmic](https://msdn.microsoft.com/en-us/library/bb742610.aspx) which has its own arguments parser, you may disable like so:
+
+```js
+const cp = buffspawn('wmic', ['logicaldisk', 'where', 'DeviceID="Z:"', 'get' 'freeSpace,size'], { crossSpawn: false }, () => {}};
+```
 
 ## Tests
 

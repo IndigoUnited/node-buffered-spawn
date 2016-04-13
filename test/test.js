@@ -155,6 +155,13 @@ describe('buffered-spawn', () => {
         return bufferedSpawn(`${__dirname}/fixtures/foo`)  // Should expand to foo.bat
         .then((io) => {
             expect(io.stdout.trim()).to.equal('foo');
+
+            return bufferedSpawn(`${__dirname}/fixtures/foo`, { crossSpawn: false })
+            .then(() => {
+                throw new Error('Should have failed');
+            }, (err) => {
+                expect(err).to.be.an(Error);
+            });
         });
     });
 

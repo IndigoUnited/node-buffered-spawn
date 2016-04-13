@@ -1,16 +1,22 @@
 'use strict';
 
-const spawn = require('cross-spawn-async');
+const crossSpawn = require('cross-spawn-async');
+const spawn = require('child_process').spawn;
 const errcode = require('err-code');
 
 function execute(command, args, options) {
     let cp;
+
+    options = Object.assign({ crossSpawn: true }, options);
+
     const promise = new Promise((resolve, reject) => {
         let stderr = new Buffer('');
         let stdout = new Buffer('');
 
         // Buffer output, reporting progress
-        cp = spawn(command, args, options);
+        // Use cross or node's spawn according to options.crossSpawn
+        cp = options.crossSpawn ? crossSpawn(command, args, options) : spawn(command, args, options);
+        delete options.crossSpawn;
 
         if (cp.stdout) {
             cp.stdout.on('data', (data) => {
