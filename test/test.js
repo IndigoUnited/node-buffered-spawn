@@ -156,12 +156,13 @@ describe('buffered-spawn', () => {
         .then((io) => {
             expect(io.stdout.trim()).to.equal('foo');
 
-            return bufferedSpawn(`${__dirname}/fixtures/foo`, { crossSpawn: false })
-            .then(() => {
-                throw new Error('Should have failed');
-            }, (err) => {
-                expect(err).to.be.an(Error);
-            });
+            return bufferedSpawn(`${__dirname}/fixtures/foo`, [], { crossSpawn: false });
+        })
+        .then(() => {
+            throw new Error('Should have failed');
+        }, (err) => {
+            expect(err).to.be.an(Error);
+            expect(err.code).to.be('ENOENT');
         });
     });
 
