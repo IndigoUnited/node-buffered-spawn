@@ -3,7 +3,7 @@
   "version": "3.2.0",
   "description": "Buffered child process#spawn.",
   "scripts": {
-    "lint": "eslint '{*.js,lib/**/*.js,,test/**/*.js}'",
+    "lint": "eslint '{*.js,test/**/*.js}'",
     "test": "mocha --bail"
   },
   "bugs": {
