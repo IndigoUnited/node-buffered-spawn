@@ -28,8 +28,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "cross-spawn-async": "^2.2.0",
-    "err-code": "^1.0.0"
+    "cross-spawn": "^4.0.0"
   },
   "devDependencies": {
     "@satazor/eslint-config": "^3.0.0",

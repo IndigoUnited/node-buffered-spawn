@@ -2,7 +2,6 @@
 
 const crossSpawn = require('cross-spawn-async');
 const spawn = require('child_process').spawn;
-const errcode = require('err-code');
 
 function execute(command, args, options) {
     let cp;
@@ -48,14 +47,13 @@ function execute(command, args, options) {
             const fullCommand = command + (args.length ? ` ${args.join(' ')}` : '');
 
             // Build the error instance
-            const error = errcode(`Failed to execute "${fullCommand}", exit code of #${code}`, 'ECMDERR', {
+            reject(Object.assign(new Error(`Failed to execute "${fullCommand}", exit code of #${code}`), 'ECMDERR', {
+                code: 'ECMDERR',
                 stderr,
                 stdout,
                 details: stderr,
                 status: code,
-            });
-
-            return reject(error);
+            }));
         });
     });
 
