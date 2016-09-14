@@ -1,6 +1,6 @@
 'use strict';
 
-const crossSpawn = require('cross-spawn-async');
+const crossSpawn = require('cross-spawn');
 const spawn = require('child_process').spawn;
 
 function execute(command, args, options) {
