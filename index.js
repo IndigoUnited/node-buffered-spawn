@@ -83,8 +83,8 @@ function buffered(command, args, options, callback) {
     }
 
     promise
-    .then((io) => {
-        callback(null, io.stdout, io.stderr);
+    .then((output) => {
+        callback(null, output.stdout, output.stderr);
     }, callback)
     .then(null, (err) => {
         setTimeout(() => {

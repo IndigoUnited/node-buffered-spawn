@@ -47,9 +47,9 @@ bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '.' }, (err
 
 // ...or Promise style
 bufferedSpawn('git', ['clone', 'git@github.com/bower/bower'], { cwd: '.' })
-.then((io) => {
-    console.log(io.stdout);
-    console.log(io.stderr);
+.then((output) => {
+    console.log(output.stdout);
+    console.log(output.stderr);
 }, (err) => {
     // Both stdout and stderr are also set on the error object
     console.error(`Command failed with error code of #${err.status}`);

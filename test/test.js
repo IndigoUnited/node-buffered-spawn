@@ -111,9 +111,9 @@ describe('buffered-spawn', () => {
                 `${__dirname}/fixtures/echo`,
                 'foo',
             ])
-            .then((io) => {
-                expect(io.stdout.trim()).to.equal('foo');
-                expect(io.stderr.trim()).to.equal('');
+            .then((output) => {
+                expect(output.stdout.trim()).to.equal('foo');
+                expect(output.stderr.trim()).to.equal('');
 
                 return bufferedSpawn('node', [`${__dirname}/fixtures/fail`]);
             })
@@ -141,9 +141,9 @@ describe('buffered-spawn', () => {
 
     it('should buffer stdout & stderr', () => {
         return bufferedSpawn('node', [`${__dirname}/fixtures/simple`])
-        .then((io) => {
-            expect(io.stdout).to.equal('i am being printed on stdout');
-            expect(io.stderr).to.equal('i am being printed on stderr');
+        .then((output) => {
+            expect(output.stdout).to.equal('i am being printed on stdout');
+            expect(output.stderr).to.equal('i am being printed on stderr');
         });
     });
 
@@ -153,8 +153,8 @@ describe('buffered-spawn', () => {
         }
 
         return bufferedSpawn(`${__dirname}/fixtures/foo`)  // Should expand to foo.bat
-        .then((io) => {
-            expect(io.stdout.trim()).to.equal('foo');
+        .then((output) => {
+            expect(output.stdout.trim()).to.equal('foo');
 
             return bufferedSpawn(`${__dirname}/fixtures/foo`, [], { crossSpawn: false });
         })
@@ -168,9 +168,9 @@ describe('buffered-spawn', () => {
 
     it('should handle multibyte properly', () => {
         return bufferedSpawn('node', [`${__dirname}/fixtures/multibyte`])
-        .then((io) => {
-            expect(io.stdout).to.equal('こんにちは');
-            expect(io.stderr).to.equal('こんにちは');
+        .then((output) => {
+            expect(output.stdout).to.equal('こんにちは');
+            expect(output.stderr).to.equal('こんにちは');
         });
     });
 
