@@ -9,7 +9,7 @@
 [travis-image]:http://img.shields.io/travis/IndigoUnited/node-buffered-spawn/master.svg
 [david-dm-url]:https://david-dm.org/IndigoUnited/node-buffered-spawn
 [david-dm-image]:https://img.shields.io/david/IndigoUnited/node-buffered-spawn.svg
-[david-dm-dev-url]:https://david-dm.org/IndigoUnited/node-buffered-spawn#info=devDependencies
+[david-dm-dev-url]:https://david-dm.org/IndigoUnited/node-buffered-spawn?type=dev
 [david-dm-dev-image]:https://img.shields.io/david/dev/IndigoUnited/node-buffered-spawn.svg
 
 Buffered child_process#spawn.
