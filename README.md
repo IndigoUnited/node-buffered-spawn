@@ -1,6 +1,6 @@
 # buffered-spawn
 
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency status][david-dm-image]][david-dm-url] [![Dev Dependency status][david-dm-dev-image]][david-dm-dev-url]
+[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency status][david-dm-image]][david-dm-url] [![Dev Dependency status][david-dm-dev-image]][david-dm-dev-url] [![Greenkeeper badge][greenkeeper-image]][greenkeeper-url]
 
 [npm-url]:https://npmjs.org/package/buffered-spawn
 [downloads-image]:http://img.shields.io/npm/dm/buffered-spawn.svg
@@ -11,6 +11,8 @@
 [david-dm-image]:https://img.shields.io/david/IndigoUnited/node-buffered-spawn.svg
 [david-dm-dev-url]:https://david-dm.org/IndigoUnited/node-buffered-spawn?type=dev
 [david-dm-dev-image]:https://img.shields.io/david/dev/IndigoUnited/node-buffered-spawn.svg
+[greenkeeper-image]:https://badges.greenkeeper.io/IndigoUnited/node-buffered-spawn.svg
+[greenkeeper-url]:https://greenkeeper.io/
 
 Buffered child_process#spawn.
 
