@@ -28,7 +28,7 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "cross-spawn": "^5.0.0"
+    "cross-spawn": "^6.0.3"
   },
   "devDependencies": {
     "@satazor/eslint-config": "^3.0.0",
